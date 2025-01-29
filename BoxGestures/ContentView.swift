@@ -6,25 +6,106 @@
 //
 
 import SwiftUI
-import RealityKit
-import RealityKitContent
 
 struct ContentView: View {
+    
+    @Environment(\.openImmersiveSpace) var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    
+    @State var showingImmersiveSpace = false
 
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
+            HStack {
+                Button {
+                    Task {
+                        if showingImmersiveSpace {
+                            await dismissImmersiveSpace()
+                        }
+                        await openImmersiveSpace(id: "DragGestureImmersive")
+                        showingImmersiveSpace = true
+                    }
+                } label: {
+                    Text("DragGesture")
+                }
+                
+                Button {
+                    Task {
+                        if showingImmersiveSpace {
+                            await dismissImmersiveSpace()
+                        }
+                        await openImmersiveSpace(id: "MagnificationGestureImmersive")
+                        showingImmersiveSpace = true
+                    }
+                } label: {
+                    Text("MagnificationGesture")
+                }
+                
+                Button {
+                    Task {
+                        if showingImmersiveSpace {
+                            await dismissImmersiveSpace()
+                        }
+                        await openImmersiveSpace(id: "DragAndMagnifyGestureImmersive")
+                        showingImmersiveSpace = true
+                    }
+                } label: {
+                    Text("DragAndMagnifyGestureImmersive")
+                }
+            }
+           
+            
+            HStack {
+                Button {
+                    Task {
+                        if showingImmersiveSpace {
+                            await dismissImmersiveSpace()
+                        }
+                        await openImmersiveSpace(id: "RotationGestureImmersive")
+                        showingImmersiveSpace = true
+                    }
+                } label: {
+                    Text("RotationGestureImmersive")
+                }
+                
+                Button {
+                    Task {
+                        if showingImmersiveSpace {
+                            await dismissImmersiveSpace()
+                        }
+                        await openImmersiveSpace(id: "RotationAndMagnifyGestureImmersive")
+                        showingImmersiveSpace = true
+                    }
+                } label: {
+                    Text("RotationAndMagnifyGestureImmersive")
+                }
+            }
 
-            Text("Hello, world!")
-
-            ToggleImmersiveSpaceButton()
+            Button {
+                Task {
+                    if showingImmersiveSpace {
+                        await dismissImmersiveSpace()
+                    }
+                    await openImmersiveSpace(id: "DragRotateScaleGestureImmersive")
+                    showingImmersiveSpace = true
+                }
+            } label: {
+                Text("Drag + Rotate + Scale Gesture")
+                    .bold()
+            }
+            
+            Button {
+                Task {
+                    if showingImmersiveSpace {
+                        await dismissImmersiveSpace()
+                    }
+                    await openImmersiveSpace(id: "DragRotateMagnifyImmersive")
+                    showingImmersiveSpace = true
+                }
+            } label: {
+                Text("Drag + Rotate + Scale Gesture (keep beforeGesture)")
+                    .bold()
+            }
         }
-        .padding()
     }
-}
-
-#Preview(windowStyle: .automatic) {
-    ContentView()
-        .environment(AppModel())
 }
