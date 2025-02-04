@@ -15,6 +15,7 @@ struct DragRotateMagnifyImmersive: View {
         RealityView { content, attachments in
             if let model = attachments.entity(for: "Model3D") {
                 model.position = .init(0, 1, -2)
+                model.components.set(GroundingShadowComponent(castsShadow: true))
                 content.add(model)
             }
         } attachments: {
@@ -27,6 +28,7 @@ struct DragRotateMagnifyImmersive: View {
                     ProgressView()
                 }
                 .frame(depth: nil, alignment: .center)
+                 // Model3Dに対して Gestureを設定する
                 .keepManipulationForModel3D()
             }
         }

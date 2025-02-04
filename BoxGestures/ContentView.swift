@@ -106,6 +106,20 @@ struct ContentView: View {
                 Text("Drag + Rotate + Scale Gesture (keep beforeGesture)")
                     .bold()
             }
+            
+            Button {
+                Task {
+                    if showingImmersiveSpace {
+                        await dismissImmersiveSpace()
+                    }
+                    await openImmersiveSpace(id: "ManifulationGestureImmersive")
+                    showingImmersiveSpace = true
+                }
+            } label: {
+                Text("EntityでManifulationGesture")
+                    .bold()
+                    .foregroundStyle(.yellow)
+            }
         }
     }
 }
